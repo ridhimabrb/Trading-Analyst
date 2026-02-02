@@ -11,6 +11,10 @@ This project implements a **Logistic Regression–based market direction classif
 The trained model is deployed in a **real-time Streamlit dashboard** that fetches live market data and provides trading decisions with probabilistic confidence.
 
 ---
+## Dashboard Preview
+<img width="400" height="230" alt="image" src="https://github.com/user-attachments/assets/cca03a44-f48b-49b2-a862-3e29f60d5528" />
+<img width="400" height="230" alt="image" src="https://github.com/user-attachments/assets/fe824daf-a8b9-4ddb-ba13-91fbb905007f" />
+
 
 ## System Architecture
 
