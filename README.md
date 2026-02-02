@@ -1,6 +1,7 @@
-# Trading Analyst
+# QuantScope
 
 An end-to-end AI-powered trading analysis system that predicts short-term market direction using machine learning and live market data.
+#### https://trading-analyst-hd2do6ygvbeyuw33bjb4nx.streamlit.app/
 
 ---
 
