@@ -48,14 +48,7 @@ The trained model is deployed in a **real-time Streamlit dashboard** that fetche
   - LONG → Bullish bias
   - SHORT → Bearish bias
   - NO TRADE → Neutral market conditions
-
-> Note: A ~54–55% accuracy is expected for short-horizon financial prediction and is statistically meaningful given market noise.
-
----
-
-## Live Demo
-
-Deployed using **Streamlit Cloud**  
+A ~54–55% accuracy is expected for short-horizon financial prediction and is statistically meaningful given market noise.
 
 ---
 
