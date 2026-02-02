@@ -6,9 +6,9 @@ from Data.live_data import fetch_live_data
 from Features.live_features import build_live_features
 from Models.ai_agent import ai_trade_decision
 
-st.set_page_config(page_title="AI Trading Analyst", layout="wide")
+st.set_page_config(page_title="QuantScope", layout="wide")
 
-st.title("Trading Analyst")
+st.title("QuantScope- Market Direction Analyst")
 
 ticker = st.text_input("Enter Ticker", "^GSPC")
 scaler = joblib.load("Models/saved/direction_model.pkl")
