@@ -1,6 +1,7 @@
-# Trading Analyst
+# QuantScope
 
 An end-to-end AI-powered trading analysis system that predicts short-term market direction using machine learning and live market data.
+#### https://trading-analyst-hd2do6ygvbeyuw33bjb4nx.streamlit.app/
 
 ---
 
@@ -10,6 +11,10 @@ This project implements a **Logistic Regression–based market direction classif
 The trained model is deployed in a **real-time Streamlit dashboard** that fetches live market data and provides trading decisions with probabilistic confidence.
 
 ---
+## Dashboard Preview
+<img width="400" height="230" alt="image" src="https://github.com/user-attachments/assets/cca03a44-f48b-49b2-a862-3e29f60d5528" />
+<img width="400" height="230" alt="image" src="https://github.com/user-attachments/assets/fe824daf-a8b9-4ddb-ba13-91fbb905007f" />
+
 
 ## System Architecture
 
@@ -47,14 +52,7 @@ The trained model is deployed in a **real-time Streamlit dashboard** that fetche
   - LONG → Bullish bias
   - SHORT → Bearish bias
   - NO TRADE → Neutral market conditions
-
-> Note: A ~54–55% accuracy is expected for short-horizon financial prediction and is statistically meaningful given market noise.
-
----
-
-## Live Demo
-
-Deployed using **Streamlit Cloud**  
+A ~54–55% accuracy is expected for short-horizon financial prediction and is statistically meaningful given market noise.
 
 ---
 
