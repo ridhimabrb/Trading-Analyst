@@ -1,36 +1,100 @@
 import streamlit as st
 import pandas as pd
-import joblib  
 
 from Data.live_data import fetch_live_data
 from Features.live_features import build_live_features
 from Models.ai_agent import ai_trade_decision
 
-st.set_page_config(page_title="QuantScope", layout="wide")
+# ---------------- PAGE CONFIG ----------------
+st.set_page_config(
+    page_title="QuantScope",
+    page_icon="📊",
+    layout="wide"
+)
 
-st.title("QuantScope- Market Direction Analyst")
+# ---------------- HEADER ----------------
+st.markdown(
+    """
+    <h1 style='text-align:center; color:#4CAF50;'> QuantScope</h1>
+    <h4 style='text-align:center; color:gray;'>
+    AI-Powered Market Direction & Decision Support System
+    </h4>
+    """,
+    unsafe_allow_html=True
+)
 
-ticker = st.text_input("Enter Ticker", "^GSPC")
-scaler = joblib.load("Models/saved/direction_model.pkl")
+st.divider()
 
+# ---------------- INPUT ----------------
+ticker = st.text_input(" Enter Market Ticker", "^GSPC")
+
+# ---------------- RUN ANALYSIS ----------------
 if st.button("Run AI Analysis"):
-    df = fetch_live_data(ticker)
-    features = build_live_features(df)
 
-    latest = features.iloc[-1:]
-    decision = ai_trade_decision(latest)
+    with st.spinner("Fetching live market data & running AI model..."):
+        df = fetch_live_data(ticker)
+        features = build_live_features(df)
+        latest = features.iloc[-1:]
+        decision = ai_trade_decision(latest)
 
-    st.subheader(" AI Decision")
-    st.metric("Decision", decision["decision"])
-    st.metric("Prob UP", decision["prob_up"])
-    st.metric("Prob DOWN", decision["prob_down"])
+    # ---------------- METRICS ----------------
+    st.subheader("AI Trade Decision")
 
-    st.subheader(" AI Explanation")
-    st.write(decision["explanation"])
+    col1, col2, col3 = st.columns(3)
 
+    col1.metric(
+        label="Decision",
+        value=decision["decision"]
+    )
 
-    st.subheader(" Recent Price Chart")
-    st.line_chart(df["Close"].tail(60))
+    col2.metric(
+        label="Probability UP",
+        value=f"{decision['prob_up'] * 100:.1f}%",
+        delta="Bullish" if decision["prob_up"] > decision["prob_down"] else None
+    )
 
-    st.subheader(" Feature Snapshot")
-    st.dataframe(latest)
+    col3.metric(
+        label="Probability DOWN",
+        value=f"{decision['prob_down'] * 100:.1f}%",
+        delta="Bearish" if decision["prob_down"] > decision["prob_up"] else None
+    )
+
+    st.divider()
+
+    # ---------------- EXPLANATION ----------------
+    st.subheader("AI Explanation")
+    st.info(decision["explanation"])
+
+    # ---------------- VISUALS ----------------
+    st.subheader("Market Visuals")
+
+    v1, v2 = st.columns(2)
+
+    with v1:
+        st.markdown("**Price Trend (Last 60 periods)**")
+        st.line_chart(df["Close"].tail(60))
+
+    with v2:
+        st.markdown("**Trading Volume**")
+        st.bar_chart(df["Volume"].tail(60))
+
+    # ---------------- RETURNS ----------------
+    st.subheader("Returns Analysis")
+
+    df["Returns"] = df["Close"].pct_change()
+
+    r1, r2 = st.columns(2)
+
+    with r1:
+        st.markdown("**Daily Returns**")
+        st.line_chart(df["Returns"].tail(60))
+
+    with r2:
+        st.markdown("**Returns Distribution**")
+        st.bar_chart(df["Returns"].dropna().tail(60))
+
+    # ---------------- FEATURES ----------------
+    st.subheader("Latest Feature Snapshot")
+    st.dataframe(latest, use_container_width=True)
+
+    st.success("Analysis completed successfully")
