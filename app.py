@@ -11,13 +11,24 @@ st.set_page_config(
     page_icon="📊",
     layout="wide"
 )
+st.markdown(
+    """
+    <style>
+    .stApp {
+        background-color: #0E1117;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 
 # ---------------- HEADER ----------------
 st.markdown(
     """
     <h1 style='text-align:center; color:#4CAF50;'> QuantScope</h1>
     <h4 style='text-align:center; color:gray;'>
-    AI-Powered Market Direction & Decision Support System
+    AI-Powered Market Direction Analyst
     </h4>
     """,
     unsafe_allow_html=True
